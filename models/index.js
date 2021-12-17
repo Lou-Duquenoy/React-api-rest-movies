@@ -1,6 +1,12 @@
 // On a récupéré ce qu'il faut pour initialiser la BDD
 const { DataTypes, Sequelize } = require('sequelize');
-const sequelize = new Sequelize('sqlite:datas.db');
+
+if(!process.env.NODE_ENV) {
+    const dotenv = require('dotenv');
+    dotenv.config();
+}
+
+const sequelize = new Sequelize(process.env.DATABASE_URL);
 
 // On est en train de récupérer nos modèles pour établir le schéma
 const Post = require('./Post')(sequelize, DataTypes);
