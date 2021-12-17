@@ -1,6 +1,7 @@
 // On a récupéré ce qu'il faut pour initialiser la BDD
 const { DataTypes, Sequelize } = require('sequelize');
 
+
 let sequelize=null;
 // Si une propriété (générée automatiquement par Heroku)
 // n'existe pas, c'est que je suis en local
@@ -22,8 +23,13 @@ else {
         }
     });
 }
+
+// en local DATABASE_URL vaut ça -> sqlite:datas.db
+// en prod DATABASE_URL va valoir qqchose du style pgsql://
+
 // On est en train de récupérer nos modèles pour établir le schéma
 const Post = require('./Post')(sequelize, DataTypes);
+
 const Task = require('./Task')(sequelize, DataTypes);
 const User = require('./User')(sequelize, DataTypes);
 const Tag = require('./Tag')(sequelize, DataTypes);
