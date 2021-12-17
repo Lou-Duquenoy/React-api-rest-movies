@@ -1,13 +1,27 @@
 // On a récupéré ce qu'il faut pour initialiser la BDD
 const { DataTypes, Sequelize } = require('sequelize');
 
-if(!process.env.NODE_ENV) {
+let sequelize=null;
+// Si une propriété (générée automatiquement par Heroku)
+// n'existe pas, c'est que je suis en local
+// et donc j'aurai besoin d'importer et configurer dotenv
+if(!process.env.NODE_ENV || process.env.NODE_ENV !== "production") {
     const dotenv = require('dotenv');
     dotenv.config();
+    sequelize = new Sequelize(process.env.DATABASE_URL);
 }
-
-const sequelize = new Sequelize(process.env.DATABASE_URL);
-
+else {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialect: 'postgres',
+        protocol: 'postgres',
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        }
+    });
+}
 // On est en train de récupérer nos modèles pour établir le schéma
 const Post = require('./Post')(sequelize, DataTypes);
 const Task = require('./Task')(sequelize, DataTypes);
