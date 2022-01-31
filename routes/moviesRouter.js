@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
         .then(movies => res.json(movies))
 })
 
+
 router.get('/:movieId',(req,res) => {
     sequelize.models.movie.findByPk(req.params.movieId)
         .then(movie => res.json(movie))
