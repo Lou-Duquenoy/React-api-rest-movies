@@ -6,10 +6,6 @@ function User(sequelize, DataTypes) {
     lastname: {
         type: DataTypes.STRING(50)
     },
-    email: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    }
 })
 }
 module.exports = User;

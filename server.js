@@ -7,14 +7,19 @@ const port = process.env.PORT || 5000;
 
 app.use(cors())
 
+// traiter le corps de ma requête si c'est du JSON
+app.use(express.json());
+// traiter le corps de ma requête lorsque ça vient d'un formulaire
+app.use(express.urlencoded());
+
 const usersRouter = require('./routes/usersRouter');
 app.use('/users',usersRouter);
 
-const tasksRouter = require('./routes/tasksRouter');
-app.use('/tasks',tasksRouter);
+const moviesRouter = require('./routes/moviesRouter');
+app.use('/movies',moviesRouter);
 
-const tagsRouter = require('./routes/tagsRouter');
-app.use('/tags',tagsRouter);
+const criticsRouter = require('./routes/criticsRouter');
+app.use('/critics',criticsRouter);
 
 // Avant mon serveur express, je veux être que la connexion
 // à la BDD soit faite
